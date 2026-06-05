@@ -1,11 +1,25 @@
 import os
 import requests
 import tempfile
+import threading
+from flask import Flask
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
+# ── Flask Server (Render port requirement) ──────────
+app_flask = Flask(__name__)
+
+@app_flask.route('/')
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    app_flask.run(host='0.0.0.0', port=10000)
+
+# ── CONFIG ──────────────────────────────────────────
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 HF_SPACE_URL = os.environ.get('HF_SPACE_URL', 'https://kokow457-myanmar-dubber.hf.space')
+# ────────────────────────────────────────────────────
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.strip()
@@ -110,4 +124,9 @@ def main():
     app.run_polling()
 
 if __name__ == '__main__':
+    # Flask ကို background thread မှာ run
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
+    
+    # Telegram bot ကို main thread မှာ run
     main()
