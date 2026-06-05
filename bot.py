@@ -124,6 +124,10 @@ def main():
     app.run_polling()
 
 if __name__ == '__main__':
+    import asyncio
+    import nest_asyncio
+    nest_asyncio.apply()
+    
     # Flask ကို background thread မှာ run
     flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
