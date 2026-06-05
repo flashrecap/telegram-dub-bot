@@ -4,7 +4,7 @@ import tempfile
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
-TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN', '8702189777:AAEanAPGKaubVcD4nr1Hv8hCvlojD9uUGWI')
+TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 HF_SPACE_URL = os.environ.get('HF_SPACE_URL', 'https://kokow457-myanmar-dubber.hf.space')
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
