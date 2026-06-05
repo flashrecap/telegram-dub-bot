@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: telegram-dub-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: HF_SPACE_URL
+        value: https://kokow457-myanmar-dubber.hf.space
